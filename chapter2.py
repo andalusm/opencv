@@ -17,13 +17,16 @@ imgCanny = cv2.Canny(img,200,150)
 #dilation better defies the borders of the canny image
 # we need a matrix so install numpy for this step
 # iterations is the thickness
-imgDilation = cv2.dilate(imgCanny,kernel,iterations=1)
+imgDilated = cv2.dilate(imgCanny,kernel,iterations=1)
+#eroded is the oppesite of Dilate it gives smaller lines
+imgEroded = cv2.erode(imgDilated,kernel,iterations=1)
 
 
 cv2.imshow("Gray image",imgGray)
 cv2.imshow("Blur image",imgBlur)
 cv2.imshow("Canny image",imgCanny)
-cv2.imshow("Dilated image",imgDilation)
+cv2.imshow("Dilated image",imgDilated)
+cv2.imshow("Eroded image",imgEroded)
 
 
 cv2.waitKey(0)
