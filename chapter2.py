@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+#can also check this https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-2/
 
 #We need to read an image
 img = cv2.imread("resources/lena.png")

@@ -1,5 +1,5 @@
 import cv2
-
+# can also check https://www.murtazahassan.com/chapter-3/
 img = cv2.imread("resources/lambo.png")
 
 #before resizing we need to know the shape
