@@ -29,6 +29,11 @@ cv2.rectangle(img,(300,300),(400,500),(0,255,0),cv2.FILLED)
 cv2.circle(img,(450,150),30,(255,255,0),4)
 
 
+#adding text on img
+#Text and start point, font, scale (float num), color and thickness
+cv2.putText(img," OpenCV ", (300,100),cv2.FONT_HERSHEY_COMPLEX,1,(0,150,0),1)
+
+
 
 
 
