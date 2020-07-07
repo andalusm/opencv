@@ -16,6 +16,12 @@ img[:] = 255,0,0
 cv2.line(img,(200,0),(300,300),(0,0,255),3)
 cv2.line(img,(0,0),(img.shape[1],img.shape[0]),(255,255,255),3)
 
+#adding rectangle (same thing as above)
+cv2.rectangle(img,(0,0),(250,350),(0,0,0),2)
+#if we want to fill it we replace the thickness with cv2.FILLED
+cv2.rectangle(img,(300,300),(400,500),(0,255,0),cv2.FILLED)
+
+
 
 cv2.imshow("Image",img)
 cv2.waitKey(0)
