@@ -6,6 +6,8 @@ img = cv2.imread("resources/lena.png")
 imgHor = np.hstack((img, img))
 #put images together vertical
 imgVer = np.vstack((img,img))
+#the problems with this is the images can't be resized so if you want more images
+#it might go out of frame and also they need to be the same number of channels(can't one be gray and one RGB)
 
 
 cv2.imshow("Horizontal images", imgHor)
