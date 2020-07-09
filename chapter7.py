@@ -16,11 +16,12 @@ cv2.resizeWindow("TrackBars",640,240)
 #name of trackbar, name of window it is on, initial value,
 # max value (hue are usually 255 but HSV has 179), function that runs everytime the value is changed
 #tldr: (trckbar name, window name, init,max,function onchange)
+#changing the init values to these (0 55 51 255 162 255)
 cv2.createTrackbar("Hue Min","TrackBars",0,179,empty)
-cv2.createTrackbar("Hue Max","TrackBars",179,179,empty)
-cv2.createTrackbar("Sat Min","TrackBars",0,255,empty)
+cv2.createTrackbar("Hue Max","TrackBars",55,179,empty)
+cv2.createTrackbar("Sat Min","TrackBars",51,255,empty)
 cv2.createTrackbar("Sat Max","TrackBars",255,255,empty)
-cv2.createTrackbar("Val Min","TrackBars",0,255,empty)
+cv2.createTrackbar("Val Min","TrackBars",162,255,empty)
 cv2.createTrackbar("Val Max","TrackBars",255,255,empty)
 
 
@@ -31,6 +32,7 @@ while True:
     #convert to HSV
     imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
     #get value in trackbar
+
     h_min = cv2.getTrackbarPos("Hue Min", "TrackBars")
     h_max = cv2.getTrackbarPos("Hue Max", "TrackBars")
     s_min = cv2.getTrackbarPos("Sat Min", "TrackBars")
