@@ -41,9 +41,15 @@ def stackImages(scale,imgArray):
 imgGray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #we now need to add blur
 imgBlur = cv2.GaussianBlur(imgGray,(7,7),1)
+#we need to find the edges in our images
+#we gues the threshold
+imgCanny = cv2.Canny(imgBlur,50,50)
+#we want an empty image
+imgBlank = np.zeros_like(img)
 
-imgAll = stackImages(0.8,[img,imgGray,imgBlur])
+imgStack = stackImages(0.6,([img,imgGray,imgBlur]
+                            ,[imgCanny,imgBlank,imgBlank]))
 
-cv2.imshow("All",imgAll)
+cv2.imshow("Image stack",imgStack)
 
 cv2.waitKey(0)
