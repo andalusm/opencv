@@ -48,8 +48,13 @@ while True:
     mask = cv2.inRange(imgHSV,lower,upper)
     #I got that the numbers are (0 55 51 255 162 255)
 
+    #using the mask to create an image bitwise checks if white and takes it other wise it's black
+    #add imges and the mask
+    imgResult = cv2.bitwise_and(img,img,mask=mask)
+
     cv2.imshow("Original",img)
     cv2.imshow("HSV",imgHSV)
     cv2.imshow("Mask",mask)
+    cv2.imshow("Orange",imgResult)
     #change the wait so it can continue going through the loop
     cv2.waitKey(1)
