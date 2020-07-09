@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
-
-
+#Check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-6/
 
 #added this function to handle it
 #it needs the scale and array
