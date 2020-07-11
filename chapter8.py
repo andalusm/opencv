@@ -27,7 +27,15 @@ def getContours(img):
             #approximate how many cornors we have, it give us the points themselves
             # we give contours and resolution(we can play around with it and if it is close
             approx = cv2.approxPolyDP(cnt, 0.02*peri,True)
-            print(approx)
+            #we find how many points
+            print(len(approx))
+            objCor = len(approx)
+            #if we have to draw a pounding box around th shape what is the x,y,width,height
+            x, y, w, h = cv2.boundingRect(approx)
+            #we want to draw the recktangle around the shape so
+            #we give the image, two points, color,thickness
+            cv2.rectangle(imgContour,(x,y),(x+w,y+h),(0,255,0),2)
+
 
 
 #adding stack function
