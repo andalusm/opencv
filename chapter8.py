@@ -24,6 +24,10 @@ def getContours(img):
             #we need to approximate the edges so we are using this takes the contours and if the shape is closed or not
             peri = cv2.arcLength(cnt, True)
             print(peri)
+            #approximate how many cornors we have, it give us the points themselves
+            # we give contours and resolution(we can play around with it and if it is close
+            approx = cv2.approxPolyDP(cnt, 0.02*peri,True)
+            print(approx)
 
 
 #adding stack function
