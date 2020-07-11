@@ -15,10 +15,12 @@ def getContours(img):
         area = cv2.contourArea(cnt)
         #printing it
         print(area)
-        #we need to draw the contours, we need image to draw contour on, contours,
-        # contours index (we put -1 to draw everything), color, thickness
-        cv2.drawContours(imgContour,cnt,-1,(255,0,0),3)
         
+        # we need to get rid of noise in the image so the area should have a threshold
+        if area > 500:
+            # we need to draw the contours, we need image to draw contour on, contours,
+            # contours index (we put -1 to draw everything), color, thickness
+            cv2.drawContours(imgContour, cnt, -1, (255, 0, 0), 3)
 
 
 #adding stack function
