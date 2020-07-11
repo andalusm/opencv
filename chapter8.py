@@ -32,9 +32,26 @@ def getContours(img):
             objCor = len(approx)
             #if we have to draw a pounding box around th shape what is the x,y,width,height
             x, y, w, h = cv2.boundingRect(approx)
+            if objCor == 3:
+                objectType = "Tri"
+            elif objCor == 4:
+                #we need to figure out if it is a rectangle or a circle, we use aspect ratio
+                # (we divide the width on the height of the rectangle that is around the shape, we put on as float to recieve a float number)
+                aspRatio = w / float(h)
+                if aspRatio > 0.98 and aspRatio < 1.03:
+                    objectType = "Square"
+                else:
+                    objectType = "Rectangle"
+            elif objCor > 4:
+                objectType = "Circles"
+            else:
+                objectType = "None"
             #we want to draw the recktangle around the shape so
             #we give the image, two points, color,thickness
             cv2.rectangle(imgContour,(x,y),(x+w,y+h),(0,255,0),2)
+            #we want to add a text to identify the shape
+            #we want image, text, point to start it at (we put here the center of the object but a bit shifted),font,scale,color,font scale
+            cv2.putText(imgContour,objectType,(x+(w//2)-10,y+(h//2)-10),cv2.FONT_HERSHEY_COMPLEX,0.7,(0,0,0),2)
 
 
 
@@ -86,7 +103,7 @@ getContours(imgCanny)
 #we want an empty image
 imgBlank = np.zeros_like(img)
 
-imgStack = stackImages(0.6,([img,imgGray,imgBlur]
+imgStack = stackImages(0.7,([img,imgGray,imgBlur]
                             ,[imgCanny,imgContour,imgBlank]))
 
 cv2.imshow("Image stack",imgStack)
