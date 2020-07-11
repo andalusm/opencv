@@ -2,8 +2,24 @@ import cv2
 import numpy as np
 #check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-7-2/
 
-path = 'Resources/shapes.png'
-img = cv2.imread(path)
+
+#this function detects the shapes and adds a colored square around them
+def getContours(img):
+    #this function finds contours
+    #it takes image, retreval method (this ones detects the extreme edges)
+    # ,approximation (how many points you want to get we got all)
+    contours , hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    #we want to loop through them
+    for cnt in contours:
+        #for each countor we need to find the area
+        area = cv2.contourArea(cnt)
+        #printing it
+        print(area)
+        #we need to draw the contours, we need image to draw contour on, contours,
+        # contours index (we put -1 to draw everything), color, thickness
+        cv2.drawContours(imgContour,cnt,-1,(255,0,0),3)
+        
+
 
 #adding stack function
 def stackImages(scale,imgArray):
@@ -37,6 +53,11 @@ def stackImages(scale,imgArray):
         ver = hor
     return ver
 
+
+path = 'Resources/shapes.png'
+img = cv2.imread(path)
+imgContour = img.copy()
+
 #We need to convert to grayscale to see the difference to the background
 imgGray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #we now need to add blur
@@ -44,11 +65,12 @@ imgBlur = cv2.GaussianBlur(imgGray,(7,7),1)
 #we need to find the edges in our images
 #we gues the threshold
 imgCanny = cv2.Canny(imgBlur,50,50)
+getContours(imgCanny)
 #we want an empty image
 imgBlank = np.zeros_like(img)
 
 imgStack = stackImages(0.6,([img,imgGray,imgBlur]
-                            ,[imgCanny,imgBlank,imgBlank]))
+                            ,[imgCanny,imgContour,imgBlank]))
 
 cv2.imshow("Image stack",imgStack)
 
