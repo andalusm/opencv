@@ -19,13 +19,18 @@ def findColor(img,myColors):
         lower = np.array(color[0:3])
         upper = np.array(color[3:6])
         mask = cv2.inRange(imgHSV, lower, upper)
-        #send mask to get contours
-        getContours(mask)
+        #send mask to get contours and return middle point
+        x,y=getContours(mask)
+        #draw circle on the image result
+        cv2.circle(imgResult,(x,y),10,(255,255,255),cv2.FILLED)
+
         # cv2.imshow(str(color),mask)
 
 #we need to approximate the bounding box around it
 def getContours(img):
     contours , hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    #if it is not detected put 0
+    x, y, w, h = 0,0,0,0
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area > 500:
@@ -33,6 +38,8 @@ def getContours(img):
             peri = cv2.arcLength(cnt, True)
             approx = cv2.approxPolyDP(cnt, 0.02*peri,True)
             x, y, w, h = cv2.boundingRect(approx)
+    #we want to return the center of the shape
+    return x+w//2,y
 
 
 
