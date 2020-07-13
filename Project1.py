@@ -15,21 +15,30 @@ myColors = [[0,111,0,9,255,255],
 myColorValues = [[0,0,205],
                  [0,51,0]]
 
+#in order to draw we need to save the points, we will save three inputs the x and y of the point and the colorId via the list
+myPoints = []  ## [x , y , colorId ]
+
 #this function should find colors and detect them and show them via mask
 def findColor(img,myColors,myColorValues):
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     #added to detect all colors
     count=0
+    newPoints = []
     for color in myColors:
         lower = np.array(color[0:3])
         upper = np.array(color[3:6])
         mask = cv2.inRange(imgHSV, lower, upper)
         #send mask to get contours and return middle point
         x,y=getContours(mask)
-        #draw circle on the image result
-        cv2.circle(imgResult,(x,y),10,myColorValues[count],cv2.FILLED)
+
+        #we add the new points only if it is not 0
+        if x != 0 and y != 0:
+            # draw circle on the image result
+            cv2.circle(imgResult, (x, y), 10, myColorValues[count], cv2.FILLED)
+            newPoints.append([x, y, count])
         count+=1
-        # cv2.imshow(str(color),mask)
+        #cv2.imshow(str(color),mask)
+    return newPoints
 
 #we need to approximate the bounding box around it
 def getContours(img):
@@ -45,13 +54,28 @@ def getContours(img):
             x, y, w, h = cv2.boundingRect(approx)
     #we want to return the center of the shape
     return x+w//2,y
+#in order to draw we need the point and the colors we used
+def drawOnCanvas(myPoints,myColorValues):
+    #we go through all the point and draw them
+    for point in myPoints:
+        cv2.circle(imgResult, (point[0], point[1]), 10, myColorValues[point[2]], cv2.FILLED)
+
 
 
 
 while True:
     success, img = cap.read()
     imgResult = img.copy()
-    findColor(img, myColors,myColorValues)
+    #each time we get a new point we redraw all of them adding this point
+    newPoints = findColor(img, myColors, myColorValues)
+    #Check if we have points:
+    if len(newPoints) != 0:
+        #Add all new points to the old ones
+        for newP in newPoints:
+            myPoints.append(newP)
+    if len(myPoints) != 0:
+        #draw them
+        drawOnCanvas(myPoints, myColorValues)
     #we want to display it with contour
     cv2.imshow("Capture", imgResult)
     if cv2.waitKey(1) & 0xFF == ord('q'):
