@@ -14,10 +14,12 @@ myColors = [[0,111,0,9,255,255],
 #this function should find colors and detect them and show them via mask
 def findColor(img,myColors):
     imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    lower = np.array(myColors[0][0:3])
-    upper = np.array(myColors[0][3:6])
-    mask = cv2.inRange(imgHSV, lower, upper)
-    cv2.imshow("img",mask)
+    #added to detect all colors
+    for color in myColors:
+        lower = np.array(color[0:3])
+        upper = np.array(color[3:6])
+        mask = cv2.inRange(imgHSV, lower, upper)
+        cv2.imshow(str(color),mask)
 
 
 
