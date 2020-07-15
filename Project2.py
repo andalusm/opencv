@@ -29,25 +29,30 @@ def getContours(img):
         area = cv2.contourArea(cnt)
         #add another zero since the page will be very big
         if area > 5000:
-            cv2.drawContours(imgContour, cnt, -1, (255, 0, 0), 3)
+            # cv2.drawContours(imgContour, cnt, -1, (255, 0, 0), 3)
             peri = cv2.arcLength(cnt, True)
             approx = cv2.approxPolyDP(cnt, 0.02*peri,True)
             #since it is a page it has 4 edges so we only want that shape and only the biggest page will be choosen
             if area > maxArea and len(approx) == 4:
                 biggest = approx
                 maxArea = area
+    cv2.drawContours(imgContour, biggest, -1, (255, 0, 0), 3)
     return biggest
 
 #we want to use warp perspective like what we did in chapter 5
+#this code is uncorrect since we don't know the order of biggest
 def getWarp(img,biggest):
-    pass
-
+    pts1 = np.float32(biggest)
+    pts2 = np.float32([[0, 0], [widthImg, 0], [0, heightImg], [widthImg, heightImg]])
+    matrix = cv2.getPerspectiveTransform(pts1, pts2)
+    imgOutput = cv2.warpPerspective(img, matrix, (widthImg, heightImg))
+    return imgOutput
 
 
 
 #img size
-widthImg = 540
-heightImg = 640
+widthImg = 640
+heightImg = 480
 #we want the code from the webcam from chapter 1
 cap = cv2.VideoCapture(0)
 # cap.set(3, widthImg)
@@ -61,7 +66,10 @@ while True:
     imgThres = preProcessing(img)
     biggest = getContours(imgThres)
     print(biggest)
-    getWarp(img,biggest)
-    cv2.imshow("Result", imgContour)
+    if biggest != []:
+        imgWarped = getWarp(img,biggest)
+        cv2.imshow("Result", imgWarped)
+    else:
+        cv2.imshow("Result", imgContour)
     if cv2.waitKey(1) and 0xFF == ord('q'):
         break
