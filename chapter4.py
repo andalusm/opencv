@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 #check this out https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-4/
 
+#We learn how to draw on images different shapes (circle,rectangle) and text
+
 # we add the size and the number of channels for the colors
 img = np.zeros((512,512,3), np.uint8)
 

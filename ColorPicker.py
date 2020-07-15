@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+#Pick color to use in project 1
+
 frameWidth = 640
 frameHeight = 480
 cap = cv2.VideoCapture(0)

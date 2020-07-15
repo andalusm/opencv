@@ -1,6 +1,8 @@
 import cv2
 import random
-#check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-9/
+
+#A small project I wrote to find images and put a nickname filter on it
+#I will expand on it later
 
 cap = cv2.VideoCapture(0)
 cap.set(3,640)

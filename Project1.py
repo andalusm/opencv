@@ -3,6 +3,7 @@ import numpy as np
 
 #get code at https://www.murtazahassan.com/learn-opencv-in-3-hours-project-1/
 
+#We will work on a capture webcam that detects preset colors and draws them, the colors that is drawn are preset too
 
 #we take the code from  the webcam in chapter 1
 cap = cv2.VideoCapture(0)

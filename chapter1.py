@@ -1,5 +1,9 @@
 import cv2
 ## go over it again at https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-1
+
+#we will learn how to read different type of images in OpenCV
+
+
 #==============================
 ##========Read Image===========
 #==============================

@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 #check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-7/
 
+#We will learn how to detect certain colors and make a mask to just show these colors
+
 def empty(a):
     pass
 

@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 #check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-7-2/
 
+#We will learn how to detect and identify certain shapes (circle,rectangle,square,triangle)
 
 #this function detects the shapes and adds a colored square around them
 def getContours(img):

@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 #check the code at https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-5/
 
+#We learn how to wrap image and make it focus on a certain thing (in this case cards)
+
 img = cv2.imread("resources/cards.jpg")
 
 #the size of the new image

@@ -2,6 +2,8 @@ import cv2
 
 #check this for reference https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-9/
 
+#find faces using cascade with a preset cascade
+
 
 img = cv2.imread('Resources/lena.png')
 #first we need face cascade which is the thing that detects faces

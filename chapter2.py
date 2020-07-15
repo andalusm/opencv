@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 #can also check this https://www.murtazahassan.com/learn-opencv-in-3-hours-chapter-2/
 
+#We will learn how to add different effects to images in OenCV
+
 #We need to read an image
 img = cv2.imread("resources/lena.png")
 
