@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+#get code at https://www.murtazahassan.com/learn-opencv-in-3-hours-project-1/
+
 
 #we take the code from  the webcam in chapter 1
 cap = cv2.VideoCapture(0)
