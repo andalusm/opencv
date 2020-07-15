@@ -39,14 +39,41 @@ def getContours(img):
     cv2.drawContours(imgContour, biggest, -1, (255, 0, 0), 3)
     return biggest
 
+#this function is made to correctly order the points
+#the first x+y gives min, the last point x+y is max
+#the second x-y is positive and the third x-y is negative
+def reorder(myPoints):
+    #shape of biggest is (4,1,2) we first reshape it since the 1 is useless and will make it more difcult
+    myPoints = myPoints.reshape((4,2))
+    #what we return is matrix that has shape (4,1,2)
+    myPointsNew = np.zeros((4,1,2),np.int32)
+    #to find the max and min we find via sum
+    add = myPoints.sum(1)
+    # print("add", add)
+    myPointsNew[0] = myPoints[np.argmin(add)]
+    myPointsNew[3] = myPoints[np.argmax(add)]
+    #to find the smallest we find via differance between the numbers
+    diff = np.diff(myPoints, axis=1)
+    myPointsNew[1] = myPoints[np.argmin(diff)]
+    myPointsNew[2] = myPoints[np.argmax(diff)]
+    # print("NewPoints",myPointsNew)
+    return myPointsNew
+
+
+
 #we want to use warp perspective like what we did in chapter 5
 #this code is uncorrect since we don't know the order of biggest
 def getWarp(img,biggest):
+    biggest = reorder(biggest)
     pts1 = np.float32(biggest)
     pts2 = np.float32([[0, 0], [widthImg, 0], [0, heightImg], [widthImg, heightImg]])
     matrix = cv2.getPerspectiveTransform(pts1, pts2)
     imgOutput = cv2.warpPerspective(img, matrix, (widthImg, heightImg))
-    return imgOutput
+    #it has a few lines added we want to crop them out
+    imgCropped = imgOutput[20:imgOutput.shape[0] - 20, 20:imgOutput.shape[1] - 20]
+    #after removing 20px from each side we resize the image again to fit
+    imgCropped = cv2.resize(imgCropped, (widthImg, heightImg))
+    return imgCropped
 
 
 
