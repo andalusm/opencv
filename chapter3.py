@@ -1,9 +1,11 @@
 import cv2
 # can also check https://www.murtazahassan.com/chapter-3/
-img = cv2.imread("resources/lambo.png")
+
 
 #We will learn about cropping and resizing the images in OpenCV
 
+
+img = cv2.imread("resources/lambo.png")
 #before resizing we need to know the shape
 #I got (462, 623, 3)
 print(img.shape)
