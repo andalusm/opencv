@@ -136,5 +136,5 @@ while True:
                      [img, img])
     stackedImages = stackImages(0.6, imageArray)
     cv2.imshow("WorkFlow", stackedImages)
-    if cv2.waitKey(1) and 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
